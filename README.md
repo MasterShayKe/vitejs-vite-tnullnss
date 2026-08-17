@@ -1,17 +1,11 @@
-# Twister Spinner
+# Twister Card
 
-A small React + TypeScript app that replaces the cardboard Twister spinner: it calls out a
-limb (right hand, left hand, right foot, left foot) and a colour (red, yellow, blue, green),
-tracks whose turn it is, and shows the mat row you need to reach for.
+A single-card Twister caller: tap the card and it draws a random limb (right hand, left hand,
+right foot, left foot) and a random colour (red, yellow, blue, green). The card takes on the
+colour it drew, so it doubles as the call-out sign.
 
-## Features
-
-- 16-wedge spinner wheel (4 limbs × 4 colours) with an animated needle
-- Big call-out of the result, optionally spoken aloud via the browser's speech synthesis
-- Turn order for 1–8 players with editable names
-- Mat view that highlights the called colour row
-- History of the last 8 calls, plus reset
-- Spin with the button, the wheel hub, or the space bar
+- Tap the card or press space for the next move
+- The same limb/colour pair never comes up twice in a row
 
 ## Run it
 
@@ -31,7 +25,6 @@ npm run preview  # serve the production build
 
 | Path | What's in it |
 | --- | --- |
-| `src/game.ts` | Colours, limbs, wedge geometry, and the random spin logic |
-| `src/components/Spinner.tsx` | The SVG wheel and needle |
-| `src/components/Mat.tsx` | The 4×6 mat with the active colour highlighted |
-| `src/App.tsx` | Game state: players, turns, history, announcements |
+| `src/game.ts` | Colours, limbs, and the random draw |
+| `src/App.tsx` | The card and its input handling |
+| `src/index.css` | Styles |

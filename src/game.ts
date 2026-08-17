@@ -37,29 +37,18 @@ export function isLeft(limb: Limb): boolean {
   return limb.startsWith('left-')
 }
 
-/** The wheel has 16 wedges: one per limb/color pair, grouped into four quadrants. */
-export const WEDGE_COUNT = LIMBS.length * COLORS.length
-export const WEDGE_ANGLE = 360 / WEDGE_COUNT
-
 export type Call = { limb: Limb; color: Color }
 
-export function wedgeAt(index: number): Call {
-  return {
-    limb: LIMBS[Math.floor(index / COLORS.length)],
-    color: COLORS[index % COLORS.length],
+function pick<T>(items: readonly T[]): T {
+  return items[Math.floor(Math.random() * items.length)]
+}
+
+/** Draws a limb/colour pair, never repeating the previous call exactly. */
+export function randomCall(previous?: Call | null): Call {
+  for (;;) {
+    const call = { limb: pick(LIMBS), color: pick(COLORS) }
+    if (!previous || call.limb !== previous.limb || call.color !== previous.color) return call
   }
-}
-
-export function randomWedge(exclude?: number): number {
-  const next = Math.floor(Math.random() * WEDGE_COUNT)
-  // Avoid repeating the exact same call twice in a row — it makes the game dull.
-  if (next === exclude) return (next + 1 + Math.floor(Math.random() * (WEDGE_COUNT - 1))) % WEDGE_COUNT
-  return next
-}
-
-/** Angle (degrees, clockwise from 12 o'clock) the needle must point at to land on a wedge. */
-export function wedgeCenterAngle(index: number): number {
-  return index * WEDGE_ANGLE + WEDGE_ANGLE / 2
 }
 
 export function callText({ limb, color }: Call): string {
